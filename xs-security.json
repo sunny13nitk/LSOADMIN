@@ -1,0 +1,39 @@
+{
+  "xsappname": "lsoadmin",
+  "oauth2-configuration": {
+    "credential-types": [
+      "instance-secret",
+      "binding-secret"
+    ],
+    "redirect-uris": [
+      "https://*.cfapps.eu10-004.hana.ondemand.com/**"
+    ]
+  },
+  "tenant-mode": "dedicated",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.Administrators",
+      "description": "Administrators"
+    }
+  ],
+  "attributes": [],
+  "role-templates": [
+    {
+      "name": "Administrators",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.Administrators"
+      ],
+      "attribute-references": []
+    }
+  ],
+  "role-collections": [
+    {
+      "name": "LSOAdmin Administrators",
+      "description": "LSOAdmin Administrators that can configure the LSO BTP App(s) and Monitor Portal Activity via Cockpit",
+      "role-template-references": [
+        "$XSAPPNAME.Administrators"
+      ]
+    }
+  ]
+}

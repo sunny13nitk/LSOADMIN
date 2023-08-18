@@ -1,0 +1,33 @@
+applications:
+- name: lsoadmin
+  instances: 1
+  memory: 896M
+  routes:
+    - route: lsoadmin.cfapps.eu10-004.hana.ondemand.com
+  path: srv/target/lsoadmin-exec.jar
+  services:
+    - lsoadmin-xsuaa
+    - esmapi-hana
+  env:
+    IAS_XSUAA_XCHANGE_ENABLED: true
+    SEND_XFRAMEOPTIONS: false
+
+# Application Router as web server
+- name: app-lsoadmin
+  path: app
+  buildpacks:
+    - nodejs_buildpack
+  memory: 128M
+  routes:
+    - route: lsoadmin-web.cfapps.eu10-004.hana.ondemand.com
+  services:
+    - lsoadmin-xsuaa
+  env:
+    destinations: >
+      [
+        {
+          "name":"token-destination",
+          "url":"https://lsoadmin.cfapps.eu10-004.hana.ondemand.com",
+          "forwardAuthToken": true
+        }
+      ]

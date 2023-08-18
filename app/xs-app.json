@@ -1,0 +1,24 @@
+{
+  "welcomeFile": "index.html",  
+  "authenticationMethod": "route",
+  "routes": [
+    {
+      "source": "^/admin",
+      "target": "/admin",
+      "destination": "token-destination",
+      "authenticationType": "none"
+    },
+    {
+      "source": "^/cockpit",
+      "target": "/cockpit",
+      "destination": "token-destination",
+      "authenticationType": "none"
+    },
+    {
+      "source": "^/api",
+      "target": "/api",
+      "destination": "token-destination",
+      "authenticationType": "xsuaa"
+    }
+  ]
+}
