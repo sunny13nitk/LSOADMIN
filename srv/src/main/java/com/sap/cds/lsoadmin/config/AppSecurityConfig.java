@@ -52,11 +52,9 @@ public class AppSecurityConfig
     http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         // session is created by approuter
         .and().authorizeRequests() // authorize all requests
-        .antMatchers("/admin/**").hasAuthority("Administrators") // Only Administrators Allowed
-        .antMatchers("/cockpit/**").authenticated() // Only Authenticated user(s) via IDP allowed
-        .antMatchers("/api/**").authenticated() // Only Authenticated user(s) via IDP allowed
-        .anyRequest().denyAll() // Deny any other endpoint access then listed above
-        .and().oauth2ResourceServer().bearerTokenResolver(new IasXsuaaExchangeBroker(xsuaaTokenFlows)).jwt()
+        .antMatchers("/admin/**").hasAuthority("Administrators").antMatchers("/cockpit/**").authenticated()
+        .antMatchers("/api/**").authenticated().anyRequest().denyAll().and().oauth2ResourceServer()
+        .bearerTokenResolver(new IasXsuaaExchangeBroker(xsuaaTokenFlows)).jwt()
         .jwtAuthenticationConverter(getJwtAuthoritiesConverter());
     // @formatter:on
 
@@ -75,4 +73,3 @@ public class AppSecurityConfig
   }
 
 }
-
