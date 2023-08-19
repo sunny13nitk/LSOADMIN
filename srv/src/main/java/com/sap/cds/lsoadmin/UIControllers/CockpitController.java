@@ -26,7 +26,7 @@ public class CockpitController
     @GetMapping("/")
     public String getCompleteLogHistory(Model model)
     {
-        String viewName = "error";
+        String viewName = "error"; 
         if (cpSrv != null)
         {
             List<Esmappmsglog> logs = cpSrv.getCompleteLogHistory();
