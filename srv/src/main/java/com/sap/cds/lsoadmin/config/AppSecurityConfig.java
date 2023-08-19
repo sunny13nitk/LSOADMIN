@@ -27,48 +27,48 @@ import com.sap.cloud.security.xsuaa.tokenflows.XsuaaTokenFlows;
 public class AppSecurityConfig
 {
 
-  // @Autowired
-  // private XsuaaServiceConfiguration xsuaaServiceConfiguration;
-  // @Autowired
-  // XsuaaTokenFlows xsuaaTokenFlows;
+  @Autowired
+  private XsuaaServiceConfiguration xsuaaServiceConfiguration;
+  @Autowired
+  XsuaaTokenFlows xsuaaTokenFlows;
 
-  @Bean 
+  @Bean
   public SecurityFilterChain appFilterChain(HttpSecurity http) throws Exception
   {
 
     /*
      * ----------- Local Testing --------------------
      */
-    return
-    http.requestMatchers().antMatchers("/cockpit/**").antMatchers("/admin/**").and()
-    .csrf().disable() // don't insist on csrf tokens in put, post etc.
-    .authorizeRequests().anyRequest().permitAll().and().build();
+    // return
+    // http.requestMatchers().antMatchers("/cockpit/**").antMatchers("/admin/**").and()
+    // .csrf().disable() // don't insist on csrf tokens in put, post etc.
+    // .authorizeRequests().anyRequest().permitAll().and().build();
 
     /*
      * ----------- CF Deployment --------------------
      */
-    // // @formatter:off
-    // http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-    //     // session is created by approuter
-    //     .and().authorizeRequests() // authorize all requests
-    //     .antMatchers("/admin/**").hasAuthority("Administrators").antMatchers("/cockpit/**").authenticated()
-    //     .antMatchers("/api/**").authenticated().anyRequest().denyAll().and().oauth2ResourceServer()
-    //     .bearerTokenResolver(new IasXsuaaExchangeBroker(xsuaaTokenFlows)).jwt()
-    //     .jwtAuthenticationConverter(getJwtAuthoritiesConverter());
-    // // @formatter:on
+    // @formatter:off
+    http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        // session is created by approuter
+        .and().authorizeRequests() // authorize all requests
+        .antMatchers("/admin/**").hasAuthority("Administrators").antMatchers("/cockpit/**").authenticated()
+        .antMatchers("/api/**").authenticated().anyRequest().denyAll().and().oauth2ResourceServer()
+        .bearerTokenResolver(new IasXsuaaExchangeBroker(xsuaaTokenFlows)).jwt()
+        .jwtAuthenticationConverter(getJwtAuthoritiesConverter());
+    // @formatter:on
 
-    // // return http.build();
+    return http.build();
 
   }
 
   // /*
   // ----------- CF Deployment --------------------
   // */
-  // Converter<Jwt, AbstractAuthenticationToken> getJwtAuthoritiesConverter()
-  // {
-  //   TokenAuthenticationConverter converter = new TokenAuthenticationConverter(xsuaaServiceConfiguration);
-  //   converter.setLocalScopeAsAuthorities(true);
-  //   return converter;
-  // }
+  Converter<Jwt, AbstractAuthenticationToken> getJwtAuthoritiesConverter()
+  {
+    TokenAuthenticationConverter converter = new TokenAuthenticationConverter(xsuaaServiceConfiguration);
+    converter.setLocalScopeAsAuthorities(true);
+    return converter;
+  }
 
 }

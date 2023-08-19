@@ -26,11 +26,13 @@ public class CockpitController
     @GetMapping("/")
     public String getCompleteLogHistory(Model model)
     {
+        String viewName = "error";
         if (cpSrv != null)
         {
             List<Esmappmsglog> logs = cpSrv.getCompleteLogHistory();
             if (CollectionUtils.isNotEmpty(logs))
             {
+                viewName = "success";
                 for (Esmappmsglog esmappmsglog : logs)
                 {
                     log.info(esmappmsglog.toString());
@@ -38,6 +40,6 @@ public class CockpitController
             }
 
         }
-        return null;
+        return viewName;
     }
 }
