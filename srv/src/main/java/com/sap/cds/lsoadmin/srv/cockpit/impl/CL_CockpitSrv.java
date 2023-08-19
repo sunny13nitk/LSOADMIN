@@ -12,7 +12,7 @@ import com.sap.cds.services.persistence.PersistenceService;
 import cds.gen.db.esmlogs.Esmappmsglog;
 import cds.gen.db.esmlogs.Esmappmsglog_;
 import lombok.RequiredArgsConstructor;
-
+ 
 @Service
 @RequiredArgsConstructor
 public class CL_CockpitSrv implements IF_CockpitSrv
