@@ -29,6 +29,8 @@ public class AppSecurityConfig
 
   // @Autowired
   // private XsuaaServiceConfiguration xsuaaServiceConfiguration;
+  // @Autowired
+  // private XsuaaServiceConfiguration xsuaaServiceConfiguration;
 
   // @Autowired
   // XsuaaTokenFlows xsuaaTokenFlows;
@@ -40,23 +42,23 @@ public class AppSecurityConfig
     /*
      * ----------- Local Testing --------------------
      */
-    return
-    http.requestMatchers().antMatchers("/api/**").antMatchers("/esslocal/**").antMatchers("/poclocal/**").and()
-    .csrf().disable() // don't insist on csrf tokens in put, post etc.
-    .authorizeRequests().anyRequest().permitAll().and().build();
+    // return
+    // http.requestMatchers().antMatchers("/api/**").antMatchers("/esslocal/**").antMatchers("/poclocal/**").and()
+    // .csrf().disable() // don't insist on csrf tokens in put, post etc.
+    // .authorizeRequests().anyRequest().permitAll().and().build();
 
     /*
      * ----------- CF Deployment --------------------
      */
-    // // @formatter:off
-    // http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-    //     // session is created by approuter 
-    //     .and().authorizeRequests() // authorize all requests
-    //     .antMatchers("/admin/**").hasAuthority("Administrators").antMatchers("/cockpit/**").authenticated()
-    //     .antMatchers("/api/**").authenticated().anyRequest().denyAll().and().oauth2ResourceServer()
-    //     .bearerTokenResolver(new IasXsuaaExchangeBroker(xsuaaTokenFlows)).jwt()
-    //     .jwtAuthenticationConverter(getJwtAuthoritiesConverter());
-    // // @formatter:on
+    // @formatter:off
+    http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        // session is created by approuter
+        .and().authorizeRequests() // authorize all requests
+        .antMatchers("/admin/**").hasAuthority("Administrators").antMatchers("/cockpit/**").authenticated()
+        .antMatchers("/api/**").authenticated().anyRequest().denyAll().and().oauth2ResourceServer()
+        .bearerTokenResolver(new IasXsuaaExchangeBroker(xsuaaTokenFlows)).jwt()
+        .jwtAuthenticationConverter(getJwtAuthoritiesConverter());
+    // @formatter:on
 
     // return http.build();
 
@@ -65,11 +67,11 @@ public class AppSecurityConfig
   // /*
   // ----------- CF Deployment --------------------
   // */
-  // Converter<Jwt, AbstractAuthenticationToken> getJwtAuthoritiesConverter()
-  // {
-  //   TokenAuthenticationConverter converter = new TokenAuthenticationConverter(xsuaaServiceConfiguration);
-  //   converter.setLocalScopeAsAuthorities(true);
-  //   return converter;
-  // }
+  Converter<Jwt, AbstractAuthenticationToken> getJwtAuthoritiesConverter()
+  {
+    TokenAuthenticationConverter converter = new TokenAuthenticationConverter(xsuaaServiceConfiguration);
+    converter.setLocalScopeAsAuthorities(true);
+    return converter;
+  }
 
 }
