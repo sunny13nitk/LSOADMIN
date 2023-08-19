@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -23,7 +24,7 @@ public class CockpitController
     private final IF_CockpitSrv cpSrv;
 
     @GetMapping("/")
-    public String getCompleteLogHistory()
+    public String getCompleteLogHistory(Model model)
     {
         if (cpSrv != null)
         {
