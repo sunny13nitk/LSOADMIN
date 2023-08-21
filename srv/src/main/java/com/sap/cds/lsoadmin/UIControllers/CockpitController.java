@@ -48,7 +48,7 @@ public class CockpitController
                 {
                     log.info(esmappmsglog.toString());
                 }
-                return "success";
+               
             }
 
         }
