@@ -40,8 +40,7 @@ public class AppSecurityConfig
      * ----------- Local Testing --------------------
      */
     // return
-    // http.requestMatchers().antMatchers("/cockpit/**").antMatchers("/admin/**").and()
-    // .csrf().disable() // don't insist on csrf tokens in put, post etc.
+    // http.requestMatchers().antMatchers("/cockpit/**").antMatchers("/admin/**").and().csrf().disable()
     // .authorizeRequests().anyRequest().permitAll().and().build();
 
     /*

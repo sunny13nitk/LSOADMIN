@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Learning Portal Cockpit</title>
+    <!-- Metro 4 -->
+    <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4.3.2/css/metro-all.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+
+<body>
+
+    <div class="frame" style="padding: 20px; overflow: auto; background-color: #FFFFFF">
+
+        <div class="row flex-justify-center">
+
+            <!--Title Head - Begin -->
+            <div class="colspan-12">
+                <h5 style="color: #54627B; margin: 10px; margin-left: 20px;">
+                    <span class="mif-safari" style="margin-left: 5px; margin-top: 4px;"></span> <span> Learning Portal
+                        Logs for </span>
+
+                    <a class="button info rounded mini outline" style="margin-left: 5px; margin-top: -4px;"
+                        th:href="@{/cockpit/logs/{duration}(duration='D1')}" role="button">Today</a>
+
+                    <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
+                        th:href="@{/cockpit/logs/{duration}(duration='W1')}" role="button">Last Week</a>
+
+                    <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
+                        th:href="@{/cockpit/logs/{duration}(duration='M1')}" role="button">Last Month</a>
+
+                    <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
+                        th:href="@{/cockpit/logs/{duration}(duration='M3')}" role="button">Last 3 Month(s)</a>
+
+                    <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
+                        th:href="@{/cockpit/logs/{duration}(duration='M6')}" role="button">Last 6 Month(s)</a>
+
+                    <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
+                        th:href="@{/cockpit/logs/{duration}(duration='Y1')}" role="button">Last Year</a>
+
+                    <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
+                        th:href="@{/cockpit/logs/{duration}(duration='All')}" role="button">All</a>
+
+
+
+                </h5>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- Metro 4 -->
+    <script src="https://cdn.metroui.org.ua/v4.3.2/js/metro.min.js"></script>
+</body>
+
+</html>
