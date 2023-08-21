@@ -35,20 +35,17 @@ public class CockpitController
     private final String errView = "error";
 
     @GetMapping("/")
-    public String getCompleteLogHistory(Model model)
+    public String getDefaultLogHistory(Model model)
     {
-
+        // Get Log history for Default :Last 1 Month
         if (cpSrv != null)
         {
-            List<Esmappmsglog> logs = cpSrv.getCompleteLogHistory();
+            List<Esmappmsglog> logs = cpSrv.getHistory4Duration(EnumDurations.M1);
             if (CollectionUtils.isNotEmpty(logs))
             {
-                
-                for (Esmappmsglog esmappmsglog : logs)
-                {
-                    log.info(esmappmsglog.toString());
-                }
-               
+                //Populate Model
+                model.addAttribute("logs", logs);
+
             }
 
         }

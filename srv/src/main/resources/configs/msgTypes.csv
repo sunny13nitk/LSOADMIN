@@ -1,0 +1,9 @@
+msgType,desc,descL,lvl
+ERR_RATELIMIT,Rate Limit Breach, User Submits more request(s) in stipulated time frame than allowed.,ALERT
+ERR_PAYLOAD, Payload Error(s), CaseForm Payload has Errors, ERROR
+SUCC_ACC_CREATE, New Account(s), New Accounts Created in Service Cloud, INFO
+ERR_ATTACHMENT,Invalid Attachment(s) ,Error Persisting Attachment in Case Payload, ALERT 
+SUCC_CASE_CREATE, Cases Created, New cases Created in Service Cloud, INFO
+ERR_CASE_CREATE, Error Case Creation, Error Creating Cases from Payload, ERROR
+
+
