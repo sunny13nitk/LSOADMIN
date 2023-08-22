@@ -6,7 +6,6 @@ import java.util.Locale;
 import java.util.Optional;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,20 +20,21 @@ import com.sap.cds.lsoadmin.srv.cockpit.intf.IF_LogClassificationSrv;
 import com.sap.cds.lsoadmin.srv.cockpit.pojos.TY_LogsReport;
 
 import cds.gen.db.esmlogs.Esmappmsglog;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/cockpit")
 @Slf4j
+@RequiredArgsConstructor
 public class CockpitController
 {
 
-    @Autowired
-    private IF_CockpitSrv cpSrv;
-    @Autowired
-    private MessageSource msgSrc;
-    @Autowired
-    private IF_LogClassificationSrv logCFSrv;
+    private final IF_CockpitSrv cpSrv;
+
+    private final MessageSource msgSrc;
+
+    private final IF_LogClassificationSrv logCFSrv;
 
     private final String logViewName = "logView";
     private final String errView = "error";
