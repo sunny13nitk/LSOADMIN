@@ -28,7 +28,7 @@ public class AppInitializrConfig
 
     private final String configMsgTypesTemplates = "/configs/msgTypes.csv";
 
-    @Bean("MessageTypesConfig")
+    @Bean()
     public TY_MessagesTypeDesc loadMsgTypesConfig()
     {
         TY_MessagesTypeDesc msgTypesConfig = null;
