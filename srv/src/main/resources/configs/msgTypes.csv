@@ -5,5 +5,9 @@ SUCC_ACC_CREATE, New Account(s), New Accounts Created in Service Cloud, INFO
 ERR_ATTACHMENT,Invalid Attachment(s) ,Error Persisting Attachment in Case Payload, ALERT 
 SUCC_CASE_CREATE, Cases Created, New cases Created in Service Cloud, INFO
 ERR_CASE_CREATE, Error Case Creation, Error Creating Cases from Payload, ERROR
+ERR_SRVCLOUDAPI, Error Service Cloud API, Service Cloud API Down, ERROR
+ERR_ACC_CREATE, Error Account Create, Error Creating Account in Service Cloud, ERROR
+SUCC_CASE_SUBM, Case Submissions, Cases Submitted Successfully after Payload Validation, INFO
+ERR_CASE_CATG, Catg. Schema Error, Error in Categorization Schema, ERROR,
 
 

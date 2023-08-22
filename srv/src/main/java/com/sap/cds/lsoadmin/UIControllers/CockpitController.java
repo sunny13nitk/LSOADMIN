@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sap.cds.lsoadmin.enums.EnumDurations;
 import com.sap.cds.lsoadmin.srv.cockpit.intf.IF_CockpitSrv;
+import com.sap.cds.lsoadmin.srv.cockpit.intf.IF_LogClassificationSrv;
+import com.sap.cds.lsoadmin.srv.cockpit.pojos.TY_LogsReport;
 
 import cds.gen.db.esmlogs.Esmappmsglog;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +32,7 @@ public class CockpitController
 
     private final IF_CockpitSrv cpSrv;
     private final MessageSource msgSrc;
+    private final IF_LogClassificationSrv logCFSrv;
 
     private final String logViewName = "logView";
     private final String errView = "error";
@@ -38,13 +41,20 @@ public class CockpitController
     public String getDefaultLogHistory(Model model)
     {
         // Get Log history for Default :Last 1 Month
-        if (cpSrv != null)
+        if (cpSrv != null && logCFSrv != null)
         {
             List<Esmappmsglog> logs = cpSrv.getHistory4Duration(EnumDurations.M1);
             if (CollectionUtils.isNotEmpty(logs))
             {
-                //Populate Model
-                model.addAttribute("logs", logs);
+                log.info("Logs Bound : " + logs.size());
+                TY_LogsReport logsReport = logCFSrv.classifyLogs4Reporting(logs);
+                if (CollectionUtils.isNotEmpty(logsReport.getChartData()))
+                {
+                    // Populate Model
+                    model.addAttribute("logs", logs);
+                    model.addAttribute("chartData", logsReport.getChartData());
+                    model.addAttribute("logsCFTable", logsReport.getLogsTableData());
+                }
 
             }
 
@@ -65,12 +75,15 @@ public class CockpitController
                 List<Esmappmsglog> logs = cpSrv.getHistory4Duration(durEnumO.get());
                 if (CollectionUtils.isNotEmpty(logs))
                 {
-
-                    for (Esmappmsglog esmappmsglog : logs)
+                    log.info("Logs Bound : " + logs.size());
+                    TY_LogsReport logsReport = logCFSrv.classifyLogs4Reporting(logs);
+                    if (CollectionUtils.isNotEmpty(logsReport.getChartData()))
                     {
-                        log.info(esmappmsglog.toString());
+                        // Populate Model
+                        model.addAttribute("logs", logs);
+                        model.addAttribute("chartData", logsReport.getChartData());
+                        model.addAttribute("logsCFTable", logsReport.getLogsTableData());
                     }
-                    return "success";
                 }
 
             }
