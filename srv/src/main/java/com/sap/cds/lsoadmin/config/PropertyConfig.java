@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Locale;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,17 +20,16 @@ import com.sap.cds.lsoadmin.exceptions.EX_LSOADMIN;
 import com.sap.cds.lsoadmin.srv.cockpit.pojos.TY_MessageTypeDesc;
 import com.sap.cds.lsoadmin.srv.cockpit.pojos.TY_MessagesTypeDesc;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Configuration
 @Slf4j
 @PropertySources(
 { @PropertySource("classpath:messages.properties"), })
-@RequiredArgsConstructor
 public class PropertyConfig
 {
-    private final MessageSource msgSrc;
+    @Autowired
+    private MessageSource msgSrc;
 
     private final String configMsgTypesTemplates = "/configs/msgTypes.csv";
 
@@ -64,8 +64,7 @@ public class PropertyConfig
 
                     if (!CollectionUtils.isEmpty(configs))
                     {
-                        log.info("Entries in Config. Found for Message Type(s) "
-                                + configs.size());
+                        log.info("Entries in Config. Found for Message Type(s) " + configs.size());
                         msgTypesConfig = new TY_MessagesTypeDesc(configs);
                     }
                 }

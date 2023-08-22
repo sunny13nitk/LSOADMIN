@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sap.cds.lsoadmin.exceptions.EX_LSOADMIN;
@@ -17,16 +18,15 @@ import com.sap.cds.lsoadmin.srv.cockpit.pojos.TY_MessagesTypeDesc;
 import com.sap.cds.lsoadmin.srv.cockpit.pojos.TY_MsgTypeCount;
 
 import cds.gen.db.esmlogs.Esmappmsglog;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
 public class CL_LogClassificationSrv implements IF_LogClassificationSrv
 {
 
-    private final TY_MessagesTypeDesc msgTypesConfig;
+    @Autowired
+    private  TY_MessagesTypeDesc msgTypesConfig;
 
     @Override
     public TY_LogsReport classifyLogs4Reporting(List<Esmappmsglog> logs) throws EX_LSOADMIN
