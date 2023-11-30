@@ -15,6 +15,6 @@ SUCC_CASE_SUBM, Cases Submitted Successfully for Persistence,Cases Submitted Suc
 ERR_CASE_CATG, Error in Case Categorization, Categorization Schema Error(s) for Cases,ERROR,false
 ERR_ATTACHMENT, Error in Case Attachment, Attachment type is not valid/Duplicate Attachment,ERROR,false
 ERR_STAT_TRANS_CFG, Error in Status Transition Configuration(s),Error in Status Transition Configuration(s),ERROR,false
-SUCC_CASE_REPL_SUBM, Cases Replies Submitted Successfully for Persistence,Cases Replies Submitted Successfully for Persistence,INFO,false  
+SUCC_CASE_REPL_SUBM, Cases Replies Submitted Successfully for Persistence,Cases Replies Submitted Successfully for Persistence,INFO,false
 
 
