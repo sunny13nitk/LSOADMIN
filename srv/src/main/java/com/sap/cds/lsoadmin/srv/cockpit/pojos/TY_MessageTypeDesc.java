@@ -20,5 +20,7 @@ public class TY_MessageTypeDesc
     private String descL;
     @CsvBindByPosition(position = 3)
     private String level;
+    @CsvBindByPosition(position = 4)
+    private boolean actvAgg; // Message Type Active for Aggregation
 
 }

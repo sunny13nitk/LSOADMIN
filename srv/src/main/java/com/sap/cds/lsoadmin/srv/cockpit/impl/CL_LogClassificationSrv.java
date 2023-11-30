@@ -32,8 +32,10 @@ public class CL_LogClassificationSrv implements IF_LogClassificationSrv
     public TY_LogsReport classifyLogs4Reporting(List<Esmappmsglog> logs) throws EX_LSOADMIN
     {
         TY_LogsReport logsClassF = null;
+        List<TY_MessageTypeDesc> aggMsgTypes = msgTypesConfig.getMsgTypesConfig().stream().filter(m -> m.isActvAgg())
+                .collect(Collectors.toList());
 
-        if (CollectionUtils.isNotEmpty(logs) && CollectionUtils.isNotEmpty(msgTypesConfig.getMsgTypesConfig()))
+        if (CollectionUtils.isNotEmpty(logs) && CollectionUtils.isNotEmpty(aggMsgTypes))
         {
             // Grouping and Showing Group Key and Correspoding Entities in each Group
             Map<String, List<Esmappmsglog>> logsByMsgTypes = logs.stream()
@@ -44,19 +46,25 @@ public class CL_LogClassificationSrv implements IF_LogClassificationSrv
                 // Prepare Chart Data
                 for (Map.Entry<String, List<Esmappmsglog>> logByMsgType : logsByMsgTypes.entrySet())
                 {
-                    logsClassF.getChartData()
-                            .add(new TY_MsgTypeCount(logByMsgType.getKey(), logByMsgType.getValue().size()));
-                    log.info(logByMsgType.getKey() + " :" + logByMsgType.getValue().size());
-
-                    // Get SText From Config
-                    Optional<TY_MessageTypeDesc> msgTypeCfgO = msgTypesConfig.getMsgTypesConfig().stream()
-                            .filter(f -> f.getMessageType().equals(logByMsgType.getKey())).findFirst();
-                    if (msgTypeCfgO.isPresent())
+                    Optional<TY_MessageTypeDesc> msgAggO = aggMsgTypes.stream()
+                            .filter(m -> m.getMessageType().equals(logByMsgType.getKey())).findFirst();
+                    if (msgAggO.isPresent())
                     {
-                        logsClassF.getLogsTableData().add(new TY_LogCLFDetails(logByMsgType.getKey(),
-                                msgTypeCfgO.get().getDesc(), logByMsgType.getValue().size(), logByMsgType.getValue()));
-                        log.info(logByMsgType.getKey() + " : " + " : " + msgTypeCfgO.get().getDesc() + " : "
-                                + logByMsgType.getValue().size() + " : " + logByMsgType.getValue());
+                        logsClassF.getChartData()
+                                .add(new TY_MsgTypeCount(logByMsgType.getKey(), logByMsgType.getValue().size()));
+                        log.info(logByMsgType.getKey() + " :" + logByMsgType.getValue().size());
+
+                        // Get SText From Config
+                        Optional<TY_MessageTypeDesc> msgTypeCfgO = msgTypesConfig.getMsgTypesConfig().stream()
+                                .filter(f -> f.getMessageType().equals(logByMsgType.getKey())).findFirst();
+                        if (msgTypeCfgO.isPresent())
+                        {
+                            logsClassF.getLogsTableData()
+                                    .add(new TY_LogCLFDetails(logByMsgType.getKey(), msgTypeCfgO.get().getDesc(),
+                                            logByMsgType.getValue().size(), logByMsgType.getValue()));
+                            log.info(logByMsgType.getKey() + " : " + " : " + msgTypeCfgO.get().getDesc() + " : "
+                                    + logByMsgType.getValue().size() + " : " + logByMsgType.getValue());
+                        }
                     }
 
                 }
