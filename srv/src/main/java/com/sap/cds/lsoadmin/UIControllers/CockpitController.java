@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.sap.cds.lsoadmin.enums.EnumDurations;
 import com.sap.cds.lsoadmin.srv.cockpit.intf.IF_CockpitSrv;
 import com.sap.cds.lsoadmin.srv.cockpit.intf.IF_LogClassificationSrv;
+import com.sap.cds.lsoadmin.srv.cockpit.pojos.TY_DurationsDictionary;
 import com.sap.cds.lsoadmin.srv.cockpit.pojos.TY_LogsReport;
 import com.sap.cds.lsoadmin.srv.cockpit.pojos.TY_MessagesTypeDesc;
 
@@ -59,7 +60,8 @@ public class CockpitController
                     model.addAttribute("logs", logs);
                     model.addAttribute("chartData", logsReport.getChartData());
                     model.addAttribute("logsCFTable", logsReport.getLogsTableData());
-                    model.addAttribute("duration", EnumDurations.M1.name());
+                    model.addAttribute("duration",
+                            TY_DurationsDictionary.getDurationsDescriptions().get(EnumDurations.M1.name()));
                     model.addAttribute("msgInfo", msgsInfo.getMsgTypesConfig());
                 }
 
@@ -90,7 +92,8 @@ public class CockpitController
                         model.addAttribute("logs", logs);
                         model.addAttribute("chartData", logsReport.getChartData());
                         model.addAttribute("logsCFTable", logsReport.getLogsTableData());
-                        model.addAttribute("duration", durEnumO.get().name());
+                        model.addAttribute("duration",
+                                TY_DurationsDictionary.getDurationsDescriptions().get(durEnumO.get().name()));
                         model.addAttribute("msgInfo", msgsInfo.getMsgTypesConfig());
                     }
                 }
