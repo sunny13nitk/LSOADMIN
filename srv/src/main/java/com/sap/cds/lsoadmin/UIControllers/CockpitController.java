@@ -18,6 +18,7 @@ import com.sap.cds.lsoadmin.enums.EnumDurations;
 import com.sap.cds.lsoadmin.srv.cockpit.intf.IF_CockpitSrv;
 import com.sap.cds.lsoadmin.srv.cockpit.intf.IF_LogClassificationSrv;
 import com.sap.cds.lsoadmin.srv.cockpit.pojos.TY_LogsReport;
+import com.sap.cds.lsoadmin.srv.cockpit.pojos.TY_MessagesTypeDesc;
 
 import cds.gen.db.esmlogs.Esmappmsglog;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,8 @@ public class CockpitController
     private final MessageSource msgSrc;
 
     private final IF_LogClassificationSrv logCFSrv;
+
+    private final TY_MessagesTypeDesc msgsInfo;
 
     private final String logViewName = "logView";
     private final String errView = "error";
@@ -56,6 +59,8 @@ public class CockpitController
                     model.addAttribute("logs", logs);
                     model.addAttribute("chartData", logsReport.getChartData());
                     model.addAttribute("logsCFTable", logsReport.getLogsTableData());
+                    model.addAttribute("duration", EnumDurations.M1.name());
+                    model.addAttribute("msgInfo", msgsInfo.getMsgTypesConfig());
                 }
 
             }
@@ -85,6 +90,8 @@ public class CockpitController
                         model.addAttribute("logs", logs);
                         model.addAttribute("chartData", logsReport.getChartData());
                         model.addAttribute("logsCFTable", logsReport.getLogsTableData());
+                        model.addAttribute("duration", durEnumO.get().name());
+                        model.addAttribute("msgInfo", msgsInfo.getMsgTypesConfig());
                     }
                 }
 

@@ -23,44 +23,229 @@
             <div class="colspan-12">
                 <h5 style="color: #54627B; margin: 10px; margin-left: 20px;">
                     <span class="mif-safari" style="margin-left: 5px; margin-top: 4px;"></span> <span> Learning Portal
-                        Logs for </span>
+                        Logs for </span> <span style="color:#54767B; margin-left: 5px; margin-top: 4px;"
+                        th:text="${duration}" </span>
 
-                    <a class="button info rounded mini outline" style="margin-left: 5px; margin-top: -4px;"
-                        th:href="@{/cockpit/logs/{duration}(duration='D1')}" role="button">Today</a>
+                        <a class="button info rounded mini outline" style="margin-left: 25px; margin-top: -4px;"
+                            th:href="@{/cockpit/logs/{duration}(duration='D1')}" role="button">Today</a>
 
-                    <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
-                        th:href="@{/cockpit/logs/{duration}(duration='W1')}" role="button">Last Week</a>
+                        <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
+                            th:href="@{/cockpit/logs/{duration}(duration='W1')}" role="button">Last Week</a>
 
-                    <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
-                        th:href="@{/cockpit/logs/{duration}(duration='M1')}" role="button">Last Month</a>
+                        <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
+                            th:href="@{/cockpit/logs/{duration}(duration='M1')}" role="button">Last Month</a>
 
-                    <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
-                        th:href="@{/cockpit/logs/{duration}(duration='M3')}" role="button">Last 3 Month(s)</a>
+                        <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
+                            th:href="@{/cockpit/logs/{duration}(duration='M3')}" role="button">Last 3 Month(s)</a>
 
-                    <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
-                        th:href="@{/cockpit/logs/{duration}(duration='M6')}" role="button">Last 6 Month(s)</a>
+                        <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
+                            th:href="@{/cockpit/logs/{duration}(duration='M6')}" role="button">Last 6 Month(s)</a>
 
-                    <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
-                        th:href="@{/cockpit/logs/{duration}(duration='Y1')}" role="button">Last Year</a>
+                        <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
+                            th:href="@{/cockpit/logs/{duration}(duration='Y1')}" role="button">Last Year</a>
 
-                    <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
-                        th:href="@{/cockpit/logs/{duration}(duration='All')}" role="button">All</a>
+                        <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
+                            th:href="@{/cockpit/logs/{duration}(duration='All')}" role="button">All</a>
 
-
+                        <a class="button info cycle mini outline" style="margin-left: 5px; margin-top: -6px"
+                            role=" button" onclick="$('#info-box').data('infobox').open()"><span
+                                class="mif-info  fg-info"></span> </a>
 
                 </h5>
 
 
             </div>
+            <!-- Info Box Messages Type HElp - BEGIN -->
+            <div class="row flex-justify-left">
+                <div class="info-box" id="info-box" data-role="infobox" data-width=800 data-height=800>
+                    <span class="button square closer"></span>
+                    <div class="info-box-content">
+                        <div class="remark success">
+                            <p>
+                                <strong> Message Type(s) Details - Dictionary </strong>
+                            </p>
+                        </div>
+                        <div class="cell-11">
+                            <table class="table  table-border compact striped">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center;">Message Type</th>
+                                        <th style="text-align: center;">Significance</th>
+                                        <th style="text-align: center;">Level</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="msg : ${msgInfo}">
+                                        <td style="text-align: left" th:text="${msg.messageType}"></td>
+                                        <td style="text-align: left" th:text="${msg.descL}"></td>
+                                        <td><span class=" tally info" th:text="${msg.level}"></span></td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Info Box Messages Type HElp - END-->
+
+            <!-- Stats Row - Begin -->
+            <div class="row flex-justify-center" th:if="${logs != null}">
+
+                <div class="cell-7" th:if="${logs.size() >0}" style="background-color: #F1FDF7; margin: 5px">
+                    <div class="d-flex flex-justify-center">
+
+                        <div id="chart_logspread" class="d-flex flex-justify-center"></div>
+                    </div>
+
+                </div>
+
+                <!-- <div class="cell-4" th:if="${logs.size() >0}"> -->
+                <div class="cell-4 card">
+                    <table class="table compact striped">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center;">Message Type</th>
+                                <th style="text-align: center;">Narration</th>
+                                <th style="text-align: center;">Occurances</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="logsI : ${logsCFTable}">
+                                <td style="text-align: center; font-weight: bolder;" th:text="${logsI.msgName}">
+                                    Message Type</td>
+                                <td style="text-align: center; font-weight: bolder;" th:text="${logsI.stext}">
+                                    Narration</td>
+                                <td style="text-align: center; font-weight: bolder; color: #494565;"
+                                    th:text="${logsI.count}">8</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <!-- </div> -->
+
+            </div>
+            <!-- Stats Row - End -->
+
+
 
         </div>
+
+
 
 
     </div>
 
 
+
+
+    </div>
+
+
+    <script th:inline="javascript" th:if="${logs != null}">
+        var logdata = /*[[${chartData}]]*/'noValue';
+        $(document).ready(function ()  
+        {
+            google.charts.load('current',
+                {
+                    packages: ['corechart', 'bar']
+                });
+            google.charts.setOnLoadCallback(drawBarChart);
+
+
+            function drawBarChart()
+            {
+                var data6 = new google.visualization.DataTable();
+
+                data6.addColumn('string', 'Message Type');
+                data6.addColumn('number', 'Count');
+
+                var dataArray6 = [];
+
+                $.each(logdata, function (i, obj)
+                {
+                    dataArray6.push([obj.msgType, obj.count]);
+                });
+                data6.addRows(dataArray6);
+
+
+
+                /* 
+                In case Data labels are needed on Bar Chart - Not working on combo*/
+                var view6 = new google.visualization.DataView(data6);
+
+                view6.setColumns([0, 1, {
+                    calc: "stringify",
+                    sourceColumn: 1,
+                    type: "string",
+                    role: "annotation"
+                }],
+
+
+                );
+                var options6 = {
+                    width: 450,
+                    height: 220,
+                    margin: 20,
+                    pointSize: 5,
+                    colors: ['#ffde69'],
+                    legend: 'none',
+
+                    hAxis: {
+
+                        viewWindow:
+                        {
+                            min: [7, 30, 0],
+                            max: [17, 30, 0]
+                        },
+                        textStyle:
+                        {
+                            color: '#698AFF',
+                            fontName: 'Calibri',
+                            fontSize: 12,
+                            bold: true
+                        }
+
+                    },
+
+                    vAxis: {
+
+                        viewWindow:
+                        {
+                            min: [7, 30, 0],
+                            max: [17, 30, 0]
+                        },
+                        textStyle:
+                        {
+                            color: '#698AFF',
+                            fontName: 'Calibri',
+                            fontSize: 12,
+                            bold: true
+                        }
+
+                    },
+
+
+
+                };
+                var chartLogs = new google.visualization.BarChart(
+                    document.getElementById('chart_logspread'));
+
+
+                //In case of Data points enabled on chart series 
+                chartLogs.draw(view6, options6);
+            }
+        });
+
+    </script>
+
     <!-- Metro 4 -->
     <script src="https://cdn.metroui.org.ua/v4.3.2/js/metro.min.js"></script>
+
+
 </body>
 
 </html>
