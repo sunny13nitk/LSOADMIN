@@ -56,7 +56,7 @@
             </div>
             <!-- Info Box Messages Type HElp - BEGIN -->
             <div class="row flex-justify-left">
-                <div class="info-box" id="info-box" data-role="infobox" data-width=800 data-height=800>
+                <div class="info-box" id="info-box" data-role="infobox" data-width=800 data-height=1200>
                     <span class="button square closer"></span>
                     <div class="info-box-content">
                         <div class="remark success">
@@ -92,7 +92,7 @@
             <!-- Stats Row - Begin -->
             <div class="row flex-justify-center" th:if="${logs != null}">
 
-                <div class="cell-7" th:if="${logs.size() >0}" style=" margin: 5px">
+                <div class="cell-6" th:if="${logs.size() >0}" style=" margin: 5px">
                     <div class="d-flex flex-justify-center">
 
                         <div id="chart_logspread" class="d-flex flex-justify-center"></div>
@@ -102,7 +102,7 @@
 
                 <!-- <div class="cell-4" th:if="${logs.size() >0}"> -->
                 <div class="cell-5 card">
-                    <table class="table compact striped">
+                    <table class="table subcompact striped">
                         <thead>
                             <tr>
                                 <th style="text-align: center;">Message Type</th>
@@ -114,9 +114,9 @@
                             <tr th:each="logsI : ${logsCFTable}">
                                 <td style="text-align: center; font-weight: bolder;" th:text="${logsI.msgName}">
                                     Message Type</td>
-                                <td style="text-align: center; font-weight: bolder;" th:text="${logsI.stext}">
+                                <td style="text-align: center;" th:text="${logsI.stext}">
                                     Narration</td>
-                                <td style="text-align: center; font-weight: bolder; color: #494565;"
+                                <td style="text-align: center; font-weight: bolder; color: #54767B;"
                                     th:text="${logsI.count}">8</td>
                             </tr>
                         </tbody>
@@ -186,21 +186,13 @@
                     pointSize: 5,
                     focusTarget: 'category',
 
-                    colors: ['#D2C2EE', '#C2EEE7', '#DEEEC2'],
-                    legend: {
-                        position: 'top',
-                        alignment: 'center',
-                        maxLines: 2,
-                        textStyle: {
-                            color: '#3C6EB7',
-                            fontName: 'Calibri',
-                            fontSize: 12,
-                            bold: true
-
-                        }
-
-                    },
-
+                    colors: ['#418EBE', '#C2EEE7', '#DEEEC2'],
+                    title: 'Logs by Message Type(s)', 
+                                     titleTextStyle: { 
+                                                         color: '#294166', 
+                                                         fontSize: 11,  
+                                                                                     
+                                                      },  
                     hAxis: {
 
                         viewWindow: {
