@@ -24,32 +24,31 @@
                 <h5 style="color: #54627B; margin: 10px; margin-left: 20px;">
                     <span class="mif-safari" style="margin-left: 5px; margin-top: 4px;"></span> <span> Learning Portal
                         Logs for </span> <span style="color:#54767B; margin-left: 5px; margin-top: 4px;"
-                        th:text="${duration}" </span>
+                        th:text="${duration}"></span>
 
-                        <a class="button info rounded mini outline" style="margin-left: 25px; margin-top: -4px;"
-                            th:href="@{/cockpit/logs/{duration}(duration='D1')}" role="button">Today</a>
+                    <a class="button info rounded mini outline" style="margin-left: 25px; margin-top: -4px;"
+                        th:href="@{/cockpit/logs/{duration}(duration='D1')}" role="button">Today</a>
 
-                        <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
-                            th:href="@{/cockpit/logs/{duration}(duration='W1')}" role="button">Last Week</a>
+                    <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
+                        th:href="@{/cockpit/logs/{duration}(duration='W1')}" role="button">Last Week</a>
 
-                        <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
-                            th:href="@{/cockpit/logs/{duration}(duration='M1')}" role="button">Last Month</a>
+                    <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
+                        th:href="@{/cockpit/logs/{duration}(duration='M1')}" role="button">Last Month</a>
 
-                        <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
-                            th:href="@{/cockpit/logs/{duration}(duration='M3')}" role="button">Last 3 Month(s)</a>
+                    <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
+                        th:href="@{/cockpit/logs/{duration}(duration='M3')}" role="button">Last 3 Month(s)</a>
 
-                        <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
-                            th:href="@{/cockpit/logs/{duration}(duration='M6')}" role="button">Last 6 Month(s)</a>
+                    <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
+                        th:href="@{/cockpit/logs/{duration}(duration='M6')}" role="button">Last 6 Month(s)</a>
 
-                        <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
-                            th:href="@{/cockpit/logs/{duration}(duration='Y1')}" role="button">Last Year</a>
+                    <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
+                        th:href="@{/cockpit/logs/{duration}(duration='Y1')}" role="button">Last Year</a>
 
-                        <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
-                            th:href="@{/cockpit/logs/{duration}(duration='All')}" role="button">All</a>
+                    <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
+                        th:href="@{/cockpit/logs/{duration}(duration='All')}" role="button">All</a>
 
-                        <a class="button info cycle mini outline" style="margin-left: 5px; margin-top: -6px"
-                            role=" button" onclick="$('#info-box').data('infobox').open()"><span
-                                class="mif-info  fg-info"></span> </a>
+                    <a class="button info cycle mini outline" style="margin-left: 5px; margin-top: -6px" role=" button"
+                        onclick="$('#info-box').data('infobox').open()"><span class="mif-info  fg-info"></span> </a>
 
                 </h5>
 
@@ -93,7 +92,7 @@
             <!-- Stats Row - Begin -->
             <div class="row flex-justify-center" th:if="${logs != null}">
 
-                <div class="cell-7" th:if="${logs.size() >0}" style="background-color: #F1FDF7; margin: 5px">
+                <div class="cell-7" th:if="${logs.size() >0}" style=" margin: 5px">
                     <div class="d-flex flex-justify-center">
 
                         <div id="chart_logspread" class="d-flex flex-justify-center"></div>
@@ -102,7 +101,7 @@
                 </div>
 
                 <!-- <div class="cell-4" th:if="${logs.size() >0}"> -->
-                <div class="cell-4 card">
+                <div class="cell-5 card">
                     <table class="table compact striped">
                         <thead>
                             <tr>
@@ -158,52 +157,58 @@
 
             function drawBarChart()
             {
-                var data6 = new google.visualization.DataTable();
+                var data = new google.visualization.DataTable();
 
-                data6.addColumn('string', 'Message Type');
-                data6.addColumn('number', 'Count');
+                data.addColumn('string', 'Message Type');
+                data.addColumn('number', 'Count');
 
-                var dataArray6 = [];
+                var dataArray = [];
 
                 $.each(logdata, function (i, obj)
                 {
-                    dataArray6.push([obj.msgType, obj.count]);
+                    dataArray.push([obj.msgType, obj.count]);
                 });
-                data6.addRows(dataArray6);
+                data.addRows(dataArray);
 
 
 
                 /* 
                 In case Data labels are needed on Bar Chart - Not working on combo*/
-                var view6 = new google.visualization.DataView(data6);
+                var view = new google.visualization.DataView(data);
 
-                view6.setColumns([0, 1, {
-                    calc: "stringify",
-                    sourceColumn: 1,
-                    type: "string",
-                    role: "annotation"
-                }],
+                var options = {
 
-
-                );
-                var options6 = {
-                    width: 450,
-                    height: 220,
-                    margin: 20,
+                    width: 750,
+                    height: 400,
+                    backgroundColor: {
+                        fill: 'transparent'
+                    },
                     pointSize: 5,
-                    colors: ['#ffde69'],
-                    legend: 'none',
+                    focusTarget: 'category',
+
+                    colors: ['#D2C2EE', '#C2EEE7', '#DEEEC2'],
+                    legend: {
+                        position: 'top',
+                        alignment: 'center',
+                        maxLines: 2,
+                        textStyle: {
+                            color: '#3C6EB7',
+                            fontName: 'Calibri',
+                            fontSize: 12,
+                            bold: true
+
+                        }
+
+                    },
 
                     hAxis: {
 
-                        viewWindow:
-                        {
+                        viewWindow: {
                             min: [7, 30, 0],
                             max: [17, 30, 0]
                         },
-                        textStyle:
-                        {
-                            color: '#698AFF',
+                        textStyle: {
+                            color: '#841EE1',
                             fontName: 'Calibri',
                             fontSize: 12,
                             bold: true
@@ -213,13 +218,11 @@
 
                     vAxis: {
 
-                        viewWindow:
-                        {
+                        viewWindow: {
                             min: [7, 30, 0],
                             max: [17, 30, 0]
                         },
-                        textStyle:
-                        {
+                        textStyle: {
                             color: '#698AFF',
                             fontName: 'Calibri',
                             fontSize: 12,
@@ -228,15 +231,16 @@
 
                     },
 
-
+                    seriesType: 'bars'
 
                 };
+
                 var chartLogs = new google.visualization.BarChart(
                     document.getElementById('chart_logspread'));
 
 
                 //In case of Data points enabled on chart series 
-                chartLogs.draw(view6, options6);
+                chartLogs.draw(view, options);
             }
         });
 
