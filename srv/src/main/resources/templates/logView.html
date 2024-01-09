@@ -2,6 +2,139 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+    <style>
+        body,
+        .info-wrapper,
+        .table.compact td,
+        .table.compact th,
+        body {
+            background: transparent linear-gradient(223deg, #fff, #eaeaea) 0 0 no-repeat padding-box;
+        }
+
+        .all-cases-title {
+            font-size: 28px;
+            margin: 52px 0;
+            font-family: BentonSans-Regular, sans-serif;
+        }
+
+        .table-container {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, .16);
+            margin: 16px 0;
+        }
+
+        .table.compact {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        .table-component .table-search-block {
+            height: 44px;
+        }
+
+        .table-component .table-search-block .input,
+        .table-component .table-search-block .input-clear-button {
+            height: inherit;
+        }
+
+        .table-component .table-search-block .input .prepend {
+            display: flex;
+            align-items: center;
+        }
+
+        .table-component .table-search-block input {
+            height: 42px;
+        }
+
+        .table.compact thead {
+            border-bottom: 1px solid rgba(0, 0, 0, .12);
+        }
+
+        .table.compact th {
+            font-size: 16px;
+            font-weight: normal;
+            vertical-align: middle;
+            font-family: BentonSans-Regular, sans-serif;
+        }
+
+        .table.compact td {
+            padding: 15px 8px;
+        }
+
+        .table.compact thead tr {
+            background: #eaeaea;
+            height: 63px;
+        }
+
+        .table.compact thead tr th:nth-child(3) {
+            width: 15%;
+            min-width: 95px;
+        }
+
+        .table.compact thead tr th:nth-child(4) {
+            width: 18%;
+        }
+
+        .table.compact thead tr th:nth-child(6) {
+            min-width: 120px;
+        }
+
+        .table tbody tr td:nth-child(7) a {
+            color: #007db8;
+        }
+
+        .table tbody tr td:nth-child(3) {
+            padding-left: 24px;
+        }
+
+        .table.compact tbody td {
+            font-size: 16px;
+            border-bottom: 1px solid #d2d2d2;
+            background-color: white;
+            text-align: left;
+        }
+
+        .table .sortable-column:after,
+        .table .sorting:after {
+            left: auto;
+            margin-left: 4px;
+        }
+
+        .pagination-wrapper .prev-page,
+        .pagination-wrapper .next-page {
+            border-color: #007db8;
+            color: #007db8;
+        }
+
+        .pagination-wrapper .pagination .page-item.service:hover,
+        .pagination-wrapper .pagination .page-item:hover {
+            background-color: #007db8;
+            color: #fff;
+        }
+
+        .pagination-wrapper .pagination .page-item.disabled {
+            pointer-events: none;
+            color: #e4e4e4;
+            border-color: #e4e4e4;
+        }
+
+        .pagination-wrapper .pagination .page-link {
+            padding: 14px 20px;
+        }
+
+        .pagination-wrapper .next-page:focus,
+        .pagination-wrapper .prev-page:focus {
+            box-shadow: none;
+            color: #ffffff;
+            background: #007db8;
+            border-color: #007db8;
+            outline: 0.125rem solid #007db8;
+            outline-offset: 0.25rem;
+        }
+
+        .info-wrapper {
+            font-size: 16px;
+        }
+    </style>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -56,7 +189,8 @@
             </div>
             <!-- Info Box Messages Type HElp - BEGIN -->
             <div class="row flex-justify-left">
-                <div class="info-box" id="info-box" data-role="infobox" data-width=800 data-height=800  style="padding: 20px; overflow: auto; background-color: #FFFFFF" >
+                <div class="info-box" id="info-box" data-role="infobox" data-width=800 data-height=800
+                    style="padding: 20px; overflow: auto; background-color: #FFFFFF">
                     <span class="button square closer"></span>
                     <div class="info-box-content">
                         <div class="remark success">
@@ -88,6 +222,16 @@
             </div>
 
             <!-- Info Box Messages Type HElp - END-->
+
+            <div class="row flex-justify-center" th:if="${logs == null}">
+
+                <blockquote th:if="${message != null }">
+                    <h6 style="color: #000058; background: #F1F2FF; padding: 10px">
+                        <span style="color: #585800"> No Logs could be found for Selected Period.</span>
+
+                    </h6>
+                </blockquote>
+            </div>
 
             <!-- Stats Row - Begin -->
             <div class="row flex-justify-center" th:if="${logs != null}">
@@ -128,6 +272,59 @@
 
             </div>
             <!-- Stats Row - End -->
+
+            <!-- Logs Table - Start -->
+            <div class="row mt-5" th:if="${logs != null}">
+                <div th:if="${logs.size() > 0}">
+                    <h1 class="all-cases-title">
+                        All Logs for Selected Duration
+                    </h1>
+
+                    <div class="colspan-12">
+                        <table class="table compact table-border row-hover" id="t-inspector" data-role="table"
+                            data-show-search="true" data-show-rows-steps="false" data-table-search-title="Filter Logs:"
+                            data-search-min-length="1" data-search-threshold="300" data-rows="10"
+                            data-search-fields="username,status,msgtype,objectid,message" data-horizontal-scroll="true"
+                            data-info-wrapper=".info-wrapper" data-thousand-separator=","
+                            data-pagination-wrapper=".pagination-wrapper" data-pagination-prev-title="Previous">
+                            <thead>
+                                <tr>
+                                    <th data-name="msgtype" class="sortable-column sort-desc pl-6">Message Type</th>
+
+                                    <th data-name="status" data-cls-column="text-left">Status</th>
+
+                                    <th data-name="username" data-cls-column="text-left">User Name</th>
+
+                                    <th data-name="message" data-cls-column="text-left">Message</th>
+
+                                    <th data-name="timestamp" class="sortable-column sort-desc pl-6">
+                                        Timestamp
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="log : ${logs}">
+
+                                    <td th:text="${log.msgtype}"></td>
+                                    <td th:text="${log.status}"></td>
+                                    <td th:text="${log.username}"></td>
+                                    <td><textarea th:text="${log.message}" data-auto-size="true"
+                                            style="min-height: 50px" disabled></textarea>
+                                    </td>
+                                    <td th:text="${#temporals.format(log.timestamp, 'yyyy-MM-dd HH:mm:ss')}"></td>
+
+                            </tbody>
+                        </table>
+
+                        <p class="h5 text-center info-wrapper"></p>
+                        <div class="d-flex flex-justify-center pagination-wrapper"></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Logs Table - Ends -->
 
 
 
@@ -188,12 +385,12 @@
                     legend: 'none',
 
                     colors: ['#CBE1EE', '#C2EEE7', '#DEEEC2'],
-                    title: 'Logs by Message Type(s)', 
-                                     titleTextStyle: { 
-                                                         color: '#418EBE', 
-                                                         fontSize: 11,  
-                                                                                     
-                                                      },  
+                    title: 'Logs by Message Type(s)',
+                    titleTextStyle: {
+                        color: '#418EBE',
+                        fontSize: 11,
+
+                    },
                     hAxis: {
 
                         viewWindow: {
