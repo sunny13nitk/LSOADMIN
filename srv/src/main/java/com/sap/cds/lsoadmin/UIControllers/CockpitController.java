@@ -97,6 +97,12 @@ public class CockpitController
                         model.addAttribute("msgInfo", msgsInfo.getMsgTypesConfig());
                     }
                 }
+                else
+                {
+                    model.addAttribute("duration",
+                            TY_DurationsDictionary.getDurationsDescriptions().get(durEnumO.get().name()));
+                    model.addAttribute("msgInfo", msgsInfo.getMsgTypesConfig());
+                }
 
             }
             else
