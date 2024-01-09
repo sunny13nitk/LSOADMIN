@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <!-- <style>
+    <style>
         body,
         .info-wrapper,
         .table.compact td,
@@ -135,7 +135,7 @@
         .info-wrapper {
             font-size: 16px;
         }
-    </style> -->
+    </style>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -309,8 +309,8 @@
                                 <td th:text="${log.msgtype}"></td>
                                 <td th:text="${log.status}"></td>
                                 <td th:text="${log.username}"></td>
-                                <td><textarea th:text="${log.message}" data-auto-size="true" style="min-height: 50px"
-                                        disabled></textarea>
+                                <td><textarea th:text="${log.message}" data-auto-size="true"
+                                        style="min-height: 50px; width: 600px;" disabled></textarea>
                                 </td>
                                 <td th:text="${#temporals.format(log.timestamp, 'yyyy-MM-dd HH:mm:ss')}"></td>
                             </tr>
