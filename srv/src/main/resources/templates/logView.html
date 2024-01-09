@@ -273,65 +273,58 @@
 
             </div>
             <!-- Stats Row - End -->
+        </div>
+        <!-- Logs Table - Start -->
+        <div class="row flex-justify-center" th:if="${logs != null}">
+            <div th:if="${logs.size() > 0}">
+                <h1 class="all-cases-title">
+                    All Logs for Selected Duration
+                </h1>
 
-            <!-- Logs Table - Start -->
-            <div class="row flex-justify-center" th:if="${logs != null}">
-                <div th:if="${logs.size() > 0}">
-                    <h1 class="all-cases-title">
-                        All Logs for Selected Duration
-                    </h1>
+                <div class="colspan-12">
+                    <table class="table compact table-border row-hover" id="t-inspector" data-role="table"
+                        data-show-search="true" data-show-rows-steps="false" data-table-search-title="Filter Logs:"
+                        data-search-min-length="1" data-search-threshold="300" data-rows="10"
+                        data-search-fields="username,status,msgtype,objectid,message" data-horizontal-scroll="true"
+                        data-info-wrapper=".info-wrapper" data-thousand-separator=","
+                        data-pagination-wrapper=".pagination-wrapper" data-pagination-prev-title="Previous">
+                        <thead>
+                            <tr>
+                                <th data-name="msgtype" class="sortable-column sort-desc pl-6">Message Type</th>
 
-                    <div class="colspan-12">
-                        <table class="table compact table-border row-hover" id="t-inspector" data-role="table"
-                            data-show-search="true" data-show-rows-steps="false" data-table-search-title="Filter Logs:"
-                            data-search-min-length="1" data-search-threshold="300" data-rows="10"
-                            data-search-fields="username,status,msgtype,objectid,message" data-horizontal-scroll="true"
-                            data-info-wrapper=".info-wrapper" data-thousand-separator=","
-                            data-pagination-wrapper=".pagination-wrapper" data-pagination-prev-title="Previous">
-                            <thead>
-                                <tr>
-                                    <th data-name="msgtype" class="sortable-column sort-desc pl-6">Message Type</th>
+                                <th data-name="status" data-cls-column="text-left">Status</th>
 
-                                    <th data-name="status" data-cls-column="text-left">Status</th>
+                                <th data-name="username" data-cls-column="text-left">User Name</th>
 
-                                    <th data-name="username" data-cls-column="text-left">User Name</th>
+                                <th data-name="message" data-cls-column="text-left">Message</th>
 
-                                    <th data-name="message" data-cls-column="text-left">Message</th>
+                                <th data-name="timestamp" class="sortable-column sort-desc pl-6">
+                                    Timestamp
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="log : ${logs}">
 
-                                    <th data-name="timestamp" class="sortable-column sort-desc pl-6">
-                                        Timestamp
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr th:each="log : ${logs}">
+                                <td th:text="${log.msgtype}"></td>
+                                <td th:text="${log.status}"></td>
+                                <td th:text="${log.username}"></td>
+                                <td><textarea th:text="${log.message}" data-auto-size="true" style="min-height: 50px"
+                                        disabled></textarea>
+                                </td>
+                                <td th:text="${#temporals.format(log.timestamp, 'yyyy-MM-dd HH:mm:ss')}"></td>
 
-                                    <td th:text="${log.msgtype}"></td>
-                                    <td th:text="${log.status}"></td>
-                                    <td th:text="${log.username}"></td>
-                                    <td><textarea th:text="${log.message}" data-auto-size="true"
-                                            style="min-height: 50px" disabled></textarea>
-                                    </td>
-                                    <td th:text="${#temporals.format(log.timestamp, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                        </tbody>
+                    </table>
 
-                            </tbody>
-                        </table>
-
-                        <p class="h5 text-center info-wrapper"></p>
-                        <div class="d-flex flex-justify-center pagination-wrapper"></div>
-                    </div>
-
+                    <p class="h5 text-center info-wrapper"></p>
+                    <div class="d-flex flex-justify-center pagination-wrapper"></div>
                 </div>
 
             </div>
 
-            <!-- Logs Table - Ends -->
-
-
-
         </div>
-
-
+        <!-- Logs Table - Ends -->
 
 
     </div>
