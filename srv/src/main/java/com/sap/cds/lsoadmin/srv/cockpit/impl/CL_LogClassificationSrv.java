@@ -61,7 +61,8 @@ public class CL_LogClassificationSrv implements IF_LogClassificationSrv
                         {
                             logsClassF.getLogsTableData()
                                     .add(new TY_LogCLFDetails(logByMsgType.getKey(), msgTypeCfgO.get().getDesc(),
-                                            logByMsgType.getValue().size(), logByMsgType.getValue()));
+                                            msgTypeCfgO.get().getLevel(), logByMsgType.getValue().size(),
+                                            logByMsgType.getValue()));
                             log.info(logByMsgType.getKey() + " : " + " : " + msgTypeCfgO.get().getDesc() + " : "
                                     + logByMsgType.getValue().size() + " : " + logByMsgType.getValue());
                         }

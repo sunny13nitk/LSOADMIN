@@ -250,6 +250,7 @@
                         <thead>
                             <tr>
                                 <th style="text-align: center;">Message Type</th>
+                                <th style="text-align: center;">Level</th>
                                 <th style="text-align: center;">Narration</th>
                                 <th style="text-align: center;">Occurances</th>
                             </tr>
@@ -258,7 +259,21 @@
                             <tr th:each="logsI : ${logsCFTable}">
                                 <td style="text-align: center; font-weight: bolder;" th:text="${logsI.msgName}">
                                     Message Type</td>
-                                <td style="text-align: center;" th:text="${logsI.stext}">
+
+
+                                <td style="text-align: center" th:if="${logsI.lvl} == ALERT">
+                                    <span class=" tally alert" th:text="${logsI.lvl}"></span>
+                                </td>
+
+                                <td style="text-align: center" th:if="${logsI.lvl} == ERROR">
+                                    <span class=" tally warning" th:text="${logsI.lvl}"></span>
+                                </td>
+
+                                <td style="text-align: center" th:if="${logsI.lvl} == INFO">
+                                    <span class=" tally info" th:text="${logsI.lvl}"></span>
+                                </td>
+
+                                <td style="text-align: center; font-size: .8em" th:text="${logsI.stext}">
                                     Narration</td>
                                 <td style="text-align: center; font-weight: bolder; color: #54767B;"
                                     th:text="${logsI.count}">8</td>

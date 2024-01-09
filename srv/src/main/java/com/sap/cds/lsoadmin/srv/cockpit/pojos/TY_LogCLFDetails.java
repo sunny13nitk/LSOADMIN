@@ -12,9 +12,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TY_LogCLFDetails
 {
-    
+
     private String msgName; // Enum Name
     private String stext; // Short Tect from Msessage Types Config
+    private String lvl; // Message Level
     private long count;
     private List<Esmappmsglog> logs;
 
