@@ -4,7 +4,6 @@
 <head>
     <style>
         body,
-        .info-wrapper,
         .table.compact td,
         .table.compact th,
         body {
@@ -12,7 +11,7 @@
         }
 
         .all-cases-title {
-            font-size: 28px;
+            font-size: 24px;
             color: #54627B;
             margin: 52px 0;
             font-family: BentonSans-Regular, sans-serif;
@@ -52,7 +51,7 @@
 
         .table.compact th {
             font-size: 16px;
-            font-weight: normal;
+            font-weight: bolder;
             vertical-align: middle;
             font-family: BentonSans-Regular, sans-serif;
         }
@@ -246,7 +245,7 @@
                 </div>
 
                 <!-- <div class="cell-4" th:if="${logs.size() >0}"> -->
-                <div class="cell-5 card">
+                <div class="cell-5 ">
                     <table class="table compact striped">
                         <thead>
                             <tr>
@@ -277,9 +276,9 @@
         <!-- Logs Table - Start -->
         <div class="row" th:if="${logs != null}">
             <div class="row" th:if="${logs.size() > 0}">
-                <h1 class="all-cases-title">
+                <h5 class="all-cases-title">
                     All Logs for Selected Duration
-                </h1>
+                </h5>
 
                 <div class="colspan-12">
                     <table class="table compact table-border row-hover" id="t-inspector" data-role="table"
@@ -310,7 +309,7 @@
                                 <td th:text="${log.status}"></td>
                                 <td th:text="${log.username}"></td>
                                 <td><textarea th:text="${log.message}" data-auto-size="true"
-                                        style="min-height: 50px; width: 600px;" disabled></textarea>
+                                        style="min-height: 50px; width: 600px; font-size: .8em" disabled></textarea>
                                 </td>
                                 <td th:text="${#temporals.format(log.timestamp, 'yyyy-MM-dd HH:mm:ss')}"></td>
                             </tr>
