@@ -4,8 +4,8 @@ ERR_PAYLOAD, Payload Error(s), CaseForm Payload has Errors,ERROR,true
 SUCC_ACC_CREATE, New Account(s), New Accounts Created in Service Cloud,INFO,true
 SUCC_CASE_CREATE, Cases Created, New cases Created in Service Cloud,INFO,true
 SUCC_CASE_REPL_SAVE, Cases Successfully Replied, Cases Repled Successfully by User(s),INFO,true
-ERR_CASE_CREATE, Error Case Creation, Error Creating Cases from Payload, ERROR,true
-ERR_SRVCLOUDAPI, Error Service Cloud API, Service Cloud API Down, ERROR,true
+ERR_CASE_CREATE, Error Case Creation, Error Creating Cases from Payload,ERROR,true
+ERR_SRVCLOUDAPI, Error Service Cloud API, Service Cloud API Down,ERROR,true
 ERR_ACC_CREATE, Error Account Create, Error Creating Account in Service Cloud,ERROR,true
 ERR_CASE_REPL_SAVE, Error Replying to Case, Case Reply Persistence Error,ERROR,true
 ERR_UNAUTH_CASE_ACCESS, Unauthorized Case Access Error, User(s) trying to access Other User's Case,ALERT,true
