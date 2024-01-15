@@ -226,8 +226,9 @@
             <div class="row flex-justify-center" th:if="${logs == null}">
 
                 <blockquote>
-                    <h6 style="color: #000058; background: #F1F2FF; padding: 10px">
-                        <span style="color: #585800"> No Logs could be found for Selected Period.</span>
+                    <h6 style="color: #000058; background: transparent; padding: 10px">
+                        <span style="color: #585800"> No Logs could be found for Selected Period. Choose any other
+                            Period to view Log Details.</span>
 
                     </h6>
                 </blockquote>
@@ -294,6 +295,12 @@
             <div class="row" th:if="${logs.size() > 0}">
                 <h5 class="all-cases-title">
                     All Logs for Selected Duration
+                    <span style="margin-left: 20px;">
+                        <a class="button info rounded mini outline" style="margin-left: 2px; margin-top: -4px;"
+                            th:href="@{/cockpit/dlLogs}" role="button">
+                            <span class="mif-file-text"></span>
+                            Download Logs as csv</a>
+                    </span>
                 </h5>
 
                 <div class="colspan-12">

@@ -1,9 +1,12 @@
 package com.sap.cds.lsoadmin.UIControllers;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.context.MessageSource;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sap.cds.lsoadmin.enums.EnumDurations;
+import com.sap.cds.lsoadmin.srv.cockpit.intf.IF_CSVExportService;
+import com.sap.cds.lsoadmin.srv.cockpit.intf.IF_CSV_LoaderSrv;
 import com.sap.cds.lsoadmin.srv.cockpit.intf.IF_CockpitSrv;
 import com.sap.cds.lsoadmin.srv.cockpit.intf.IF_LogClassificationSrv;
 import com.sap.cds.lsoadmin.srv.cockpit.pojos.TY_DurationsDictionary;
@@ -39,6 +44,10 @@ public class CockpitController
     private final IF_LogClassificationSrv logCFSrv;
 
     private final TY_MessagesTypeDesc msgsInfo;
+
+    private final IF_CSV_LoaderSrv csvLoaderSrv;
+
+    private final IF_CSVExportService csvSrv;
 
     private final String logViewName = "logView";
     private final String errView = "error";
@@ -85,6 +94,10 @@ public class CockpitController
                 if (CollectionUtils.isNotEmpty(logs))
                 {
                     log.info("Logs Bound : " + logs.size());
+                    if (csvLoaderSrv != null)
+                    {
+                        csvLoaderSrv.loadLogs(logs);
+                    }
                     TY_LogsReport logsReport = logCFSrv.classifyLogs4Reporting(logs);
                     if (CollectionUtils.isNotEmpty(logsReport.getChartData()))
                     {
@@ -120,4 +133,16 @@ public class CockpitController
         return logViewName;
     }
 
+    @RequestMapping(path = "/dlLogs")
+    public void getAllEmployeesInCsv(HttpServletResponse servletResponse) throws IOException
+    {
+        if (csvSrv != null)
+        {
+
+        }
+        servletResponse.setContentType("text/csv");
+        servletResponse.addHeader("Content-Disposition", "attachment; filename=\"lsoCockpitLogs.csv\"");
+        csvSrv.generateCSV(servletResponse.getWriter(), csvLoaderSrv.getLogs4mSession4CSVDL());
+
+    }
 }
