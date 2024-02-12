@@ -133,16 +133,16 @@ public class CockpitController
         return logViewName;
     }
 
-    @RequestMapping(path = "/dlLogs")
+    @GetMapping(path = "/dlLogs")
     public void getAllEmployeesInCsv(HttpServletResponse servletResponse) throws IOException
     {
         if (csvSrv != null)
         {
+            servletResponse.setContentType("text/csv");
+            servletResponse.addHeader("Content-Disposition", "attachment; filename=\"lsoCockpitLogs.csv\"");
+            csvSrv.generateCSV(servletResponse.getWriter(), csvLoaderSrv.getLogs4mSession4CSVDL());
 
         }
-        servletResponse.setContentType("text/csv");
-        servletResponse.addHeader("Content-Disposition", "attachment; filename=\"lsoCockpitLogs.csv\"");
-        csvSrv.generateCSV(servletResponse.getWriter(), csvLoaderSrv.getLogs4mSession4CSVDL());
 
     }
 }

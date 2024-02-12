@@ -33,7 +33,10 @@ public class CL_CSVExportService implements IF_CSVExportService
         if (CollectionUtils.isNotEmpty(items))
         {
             Object o = items.get(0);
-            if (o instanceof TY_LogCLFDetails)
+            log.info("D/L list size : " + items.size());
+            log.info("List for DL has Object instance of  type : " + o.getClass().getName());
+
+            if (o instanceof Esmappmsglog)
             {
                 List<Esmappmsglog> logDetails = (List<Esmappmsglog>) items;
                 if (CollectionUtils.isNotEmpty(logDetails))
