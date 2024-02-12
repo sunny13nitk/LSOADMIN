@@ -67,6 +67,11 @@ public class CockpitController
                 {
                     // Populate Model
                     model.addAttribute("logs", logs);
+                    if (csvLoaderSrv != null)
+                    {
+                        log.info("Pushing logs in Session : " + logs.size());
+                        csvLoaderSrv.loadLogs(logs);
+                    }
                     model.addAttribute("chartData", logsReport.getChartData());
                     model.addAttribute("logsCFTable", logsReport.getLogsTableData());
                     model.addAttribute("duration",
