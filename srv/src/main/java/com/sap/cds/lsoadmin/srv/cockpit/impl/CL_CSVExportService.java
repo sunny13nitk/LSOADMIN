@@ -30,10 +30,14 @@ public class CL_CSVExportService implements IF_CSVExportService
     @Override
     public <T> void generateCSV(Writer writer, List<T> items) throws EX_LSOADMIN
     {
+
+        log.info("Inside D/L Routine....");
+        log.info("D/L list size : " + items.size());
+
         if (CollectionUtils.isNotEmpty(items))
         {
             Object o = items.get(0);
-            log.info("D/L list size : " + items.size());
+
             log.info("List for DL has Object instance of  type : " + o.getClass().getName());
 
             if (o instanceof Esmappmsglog)

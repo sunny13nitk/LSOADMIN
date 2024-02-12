@@ -96,6 +96,7 @@ public class CockpitController
                     log.info("Logs Bound : " + logs.size());
                     if (csvLoaderSrv != null)
                     {
+                        log.info("Pushing logs in Session : " + logs.size());
                         csvLoaderSrv.loadLogs(logs);
                     }
                     TY_LogsReport logsReport = logCFSrv.classifyLogs4Reporting(logs);
