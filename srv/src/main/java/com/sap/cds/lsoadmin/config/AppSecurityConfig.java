@@ -12,6 +12,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.HeaderWriterLogoutHandler;
+import org.springframework.security.web.header.writers.ClearSiteDataHeaderWriter;
+import org.springframework.security.web.header.writers.ClearSiteDataHeaderWriter.Directive;
 
 import com.sap.cloud.security.xsuaa.XsuaaServiceConfiguration;
 import com.sap.cloud.security.xsuaa.extractor.IasXsuaaExchangeBroker;
@@ -47,12 +50,16 @@ public class AppSecurityConfig
      * ----------- CF Deployment --------------------
      */
     // @formatter:off
-    http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+    HeaderWriterLogoutHandler clearSiteData = new HeaderWriterLogoutHandler(
+        new ClearSiteDataHeaderWriter(Directive.ALL));
+    http.logout((logout) -> logout.logoutSuccessUrl("/logout/").permitAll())
+        .logout((logout) -> logout.addLogoutHandler(clearSiteData)).sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         // session is created by approuter
         .and().authorizeRequests() // authorize all requests
-        .antMatchers("/admin/**").hasAuthority("Administrators").antMatchers("/cockpit/**").authenticated()
-        .antMatchers("/api/**").authenticated().anyRequest().denyAll().and().oauth2ResourceServer()
-        .bearerTokenResolver(new IasXsuaaExchangeBroker(xsuaaTokenFlows)).jwt()
+        .antMatchers("/home/").permitAll().antMatchers("/admin/**").hasAuthority("Administrators")
+        .antMatchers("/cockpit/**").authenticated().antMatchers("/api/**").authenticated().anyRequest().denyAll().and()
+        .oauth2ResourceServer().bearerTokenResolver(new IasXsuaaExchangeBroker(xsuaaTokenFlows)).jwt()
         .jwtAuthenticationConverter(getJwtAuthoritiesConverter());
     // @formatter:on
 
