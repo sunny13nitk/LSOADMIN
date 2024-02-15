@@ -12,27 +12,46 @@
   "tenant-mode": "dedicated",
   "scopes": [
     {
-      "name": "$XSAPPNAME.Administrators",
-      "description": "Administrators"
+      "name": "$XSAPPNAME.SVC_LSO_PORTAL_ADMIN",
+      "description": "Cockpit Administrator"
+    },
+    {
+      "name": "$XSAPPNAME.SVC_LSO_PORTAL_TECHSUPPORT",
+      "description": "LSO Configurator"
     }
   ],
   "attributes": [],
   "role-templates": [
     {
-      "name": "Administrators",
+      "name": "SVC_LSO_PORTAL_ADMIN",
       "description": "generated",
       "scope-references": [
-        "$XSAPPNAME.Administrators"
+        "$XSAPPNAME.SVC_LSO_PORTAL_ADMIN"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "SVC_LSO_PORTAL_TECHSUPPORT",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.SVC_LSO_PORTAL_TECHSUPPORT"
       ],
       "attribute-references": []
     }
   ],
   "role-collections": [
     {
-      "name": "LSOAdmin Administrators",
-      "description": "LSOAdmin Administrators that can configure the LSO BTP App(s) and Monitor Portal Activity via Cockpit",
+      "name": "SVC_LSO_PORTAL_ADMIN",
+      "description": "LSO Cockpit Administrators that can Monitor Portal Activity via Cockpit",
       "role-template-references": [
-        "$XSAPPNAME.Administrators"
+        "$XSAPPNAME.SVC_LSO_PORTAL_ADMIN"
+      ]
+    },
+    {
+      "name": "SVC_LSO_PORTAL_TECHSUPPORT",
+      "description": "LSO Cockpit Technical Support User(s) that can configure the LSO Portal App",
+      "role-template-references": [
+        "$XSAPPNAME.SVC_LSO_PORTAL_TECHSUPPORT"
       ]
     }
   ]
