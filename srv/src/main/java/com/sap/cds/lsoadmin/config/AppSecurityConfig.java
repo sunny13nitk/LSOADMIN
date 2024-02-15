@@ -57,7 +57,7 @@ public class AppSecurityConfig
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         // session is created by approuter
         .and().authorizeRequests() // authorize all requests
-        .antMatchers("/home/").permitAll().antMatchers("/admin/**").hasAuthority("Administrators")
+        .antMatchers("/home/").authenticated().antMatchers("/admin/**").hasAuthority("Administrators")
         .antMatchers("/cockpit/**").authenticated().antMatchers("/api/**").authenticated().anyRequest().denyAll().and()
         .oauth2ResourceServer().bearerTokenResolver(new IasXsuaaExchangeBroker(xsuaaTokenFlows)).jwt()
         .jwtAuthenticationConverter(getJwtAuthoritiesConverter());
