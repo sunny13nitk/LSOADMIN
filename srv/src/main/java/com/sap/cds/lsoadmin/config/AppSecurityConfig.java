@@ -52,12 +52,12 @@ public class AppSecurityConfig
     // @formatter:off
     HeaderWriterLogoutHandler clearSiteData = new HeaderWriterLogoutHandler(
         new ClearSiteDataHeaderWriter(Directive.ALL));
-    http.logout((logout) -> logout.logoutSuccessUrl("/logout/").permitAll())
+    http.logout((logout) -> logout.logoutSuccessUrl("/logout").permitAll())
         .logout((logout) -> logout.addLogoutHandler(clearSiteData)).sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         // session is created by approuter
         .and().authorizeRequests() // authorize all requests
-        .antMatchers("/home/").authenticated().antMatchers("/admin/**").hasAuthority("Administrators")
+        .antMatchers("/home").authenticated().antMatchers("/admin/**").hasAuthority("Administrators")
         .antMatchers("/cockpit/**").authenticated().antMatchers("/api/**").authenticated().anyRequest().denyAll().and()
         .oauth2ResourceServer().bearerTokenResolver(new IasXsuaaExchangeBroker(xsuaaTokenFlows)).jwt()
         .jwtAuthenticationConverter(getJwtAuthoritiesConverter());
