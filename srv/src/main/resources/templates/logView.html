@@ -153,7 +153,7 @@
         <div class="row flex-justify-center">
 
             <!--Title Head - Begin -->
-            <div class="colspan-12">
+            <div class="colspan-11">
                 <h5 style="color: #54627B; margin: 10px; margin-left: 20px;">
                     <span class="mif-safari" style="margin-left: 5px; margin-top: 4px;"></span> <span> Learning Portal
                         Logs for </span> <span style="color:#54767B; margin-left: 5px; margin-top: 4px;"
@@ -183,20 +183,24 @@
                     <a class="button info cycle mini outline" style="margin-left: 5px; margin-top: -6px" role=" button"
                         onclick="$('#info-box').data('infobox').open()"><span class="mif-info  fg-info"></span> </a>
 
-                    <a href="#" class="button secondary outline cycle" style="margin-left: 70px;" data-role="hint"
-                        th:href="@{/home}" role="button" data-hint-position="bottom" data-cls-hint="fg-black"
-                        data-hint-text="Back to Main Menu">
-                        <span class="mif-home" style="margin-left: 0px"></span>
-                    </a>
 
-                    <a href="#" class="button alert outline cycle" style="margin-left: 10px;" data-role="hint"
-                        th:href="@{/logout}" role="button" data-hint-position="bottom" data-cls-hint="fg-black"
-                        data-hint-text="Logout">
-                        <span class="mif-switch" style="margin-left: 0px"></span>
-                    </a>
                 </h5>
 
 
+            </div>
+
+            <div class="colspan-1">
+                <a href="#" class="button secondary outline cycle" style="margin-left: 70px;" data-role="hint"
+                    th:href="@{/home}" role="button" data-hint-position="bottom" data-cls-hint="fg-black"
+                    data-hint-text="Back to Main Menu">
+                    <span class="mif-home" style="margin-left: 0px"></span>
+                </a>
+
+                <a href="#" class="button alert outline cycle" style="margin-left: 10px;" data-role="hint"
+                    th:href="@{/logout}" role="button" data-hint-position="bottom" data-cls-hint="fg-black"
+                    data-hint-text="Logout">
+                    <span class="mif-switch" style="margin-left: 0px"></span>
+                </a>
             </div>
             <!-- Info Box Messages Type HElp - BEGIN -->
             <div class="row flex-justify-left">
@@ -236,13 +240,13 @@
 
             <div class="row flex-justify-center" th:if="${logs == null}" style="margin-top: 200px; min-height: 400px;">
 
-                
-                    <h6 style="color: #000058; background: transparent; padding: 10px; ">
-                        <span style="color: #585800"> No Logs could be found for Selected Period. Choose any other
-                            Period from Top toolbar to view Log Details.</span>
 
-                    </h6>
-                
+                <h6 style="color: #000058; background: transparent; padding: 10px; ">
+                    <span style="color: #585800"> No Logs could be found for Selected Period. Choose any other
+                        Period from Top toolbar to view Log Details.</span>
+
+                </h6>
+
             </div>
 
             <!-- Stats Row - Begin -->

@@ -19,6 +19,18 @@
       "target": "/api",
       "destination": "token-destination",
       "authenticationType": "xsuaa"
+    },
+    {
+      "source": "^/logout",
+      "target": "/logout",
+      "destination": "token-destination",
+      "authenticationType": "none"
+    },
+    {
+      "source": "^/home",
+      "target": "/home",
+      "destination": "token-destination",
+      "authenticationType": "none"
     }
   ]
 }
